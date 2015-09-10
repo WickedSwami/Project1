@@ -26,8 +26,9 @@ public class ReadFile
         
         while (infile.hasNext())
         {
+            int freq = 1;
             String word = infile.next();
-            
+            countWords.put(word, freq);
             System.out.println(word);
         }
         
@@ -47,8 +48,8 @@ public class ReadFile
         for (String word: someWords) {
             int freq = countWords.get(word);
             outputFile.println("WORD: " + word);
+            
             outputFile.println("FREQUENCY: " + freq);
-            outputFile.println(word);
 
         }
         
@@ -78,7 +79,7 @@ public class ReadFile
                 PrintWriter outFile = new PrintWriter("WickedWords.html");
                 HashMap<String,Integer> myWords = mainObject.getCountWords();
                 ArrayList<String> wordCloud = new ArrayList<String>();
-                int freq = 0;
+                int freq = 1;
                 
                 for (String word : myWords.keySet()) {
                     wordCloud.add(word);

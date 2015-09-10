@@ -59,8 +59,10 @@ public class ReadFileExample
 			try {
 				Scanner in = new Scanner(fileToRead);
 				mainObject.readIt(in);
+				
 				/* Now demonstrate a PrintWriter for printing a file */
 				PrintWriter outFile = new PrintWriter("words.html");
+				
 				
 				words.add("how");
 				words.add("now");
