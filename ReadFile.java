@@ -22,17 +22,12 @@ public class ReadFile
      */
     public void readIt(Scanner infile)
     {
-        HashMap<String, Integer>countWords = new HashMap<String, Integer>();
+        
         
         while (infile.hasNext())
         {
             String word = infile.next();
             
-            if (countWords.containsKey(word)) {
-                countWords.put(word,countWords.get(word)+1);
-            } else {
-                countWords.put(word,1);
-            }
             System.out.println(word);
         }
         
@@ -51,7 +46,10 @@ public class ReadFile
 		
         for (String word: someWords) {
             int freq = countWords.get(word);
-            outputFile.println("<p style='font-size:"+freq+"'>"+word+"</p>");
+            outputFile.println("WORD: " + word);
+            outputFile.println("FREQUENCY: " + freq);
+            outputFile.println(word);
+
         }
         
         outputFile.println("</html>");
@@ -78,24 +76,15 @@ public class ReadFile
                 mainObject.readIt(in);
                 /* Now demonstrate a PrintWriter for printing a file */
                 PrintWriter outFile = new PrintWriter("WickedWords.html");
-                HashMap<String,Integer> wordBank = new HashMap<String,Integer>();
                 HashMap<String,Integer> myWords = mainObject.getCountWords();
                 ArrayList<String> wordCloud = new ArrayList<String>();
+                int freq = 0;
                 
                 for (String word : myWords.keySet()) {
                     wordCloud.add(word);
                 }
                 
-                for (String word : wordCloud) {
-                    wordBank.put(word,0);
-                    Integer freq = wordBank.get(word);
-                    
-                    if (wordBank.get(freq).equals(word)) {
-                        wordBank.put(word,freq+1);
-                    }
                 
-                    
-                }
                 
                 mainObject.writeIt(outFile,wordCloud);
                 outFile.close();
