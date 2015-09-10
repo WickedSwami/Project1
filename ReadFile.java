@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.ArrayList;
 
 /**
@@ -14,79 +15,91 @@ import java.util.ArrayList;
  */
 public class ReadFile
 {
+    private double totalWordCount = 0.00;
+    private ArrayList<String> words = new ArrayList<String>();
+    
     /**
      * Constructor for objects of class ReadFile
      */
     public void readIt(Scanner infile)
     {
-        int count = 1;
-        HashMap<String,Integer> wordBank = new HashMap<String,Integer>();
-        
+               
         while (infile.hasNext())
         {
+            totalWordCount++;
             String word = infile.next();
-            wordBank.put(word,count);
-            if (wordBank.containsKey(word)) {
-                int thisInt = wordBank.get(word);
-                thisInt++;
-            }
-            System.out.println("WORD: " + word);              
+            words.add(word);
+            
+            System.out.println(word);
         }
+        
+        System.out.println(totalWordCount);
     }
     
     /**
-	* BONUS: Writing to a file
-	* @param outputFile is the file object for output
-	* @param someWords is a list of words to print out
-	**/
-	public void writeIt(PrintWriter outputFile, ArrayList<String> someWords)
-	{
-		for (String word: someWords) 
-		{
-			outputFile.println(word);
-		}
-	}
+    * BONUS: Writing to a file
+    * @param outputFile is the file object for output
+    * @param someWords is a list of words to print out
+    **/
+    public void writeIt(PrintWriter outputFile, HashMap<String,Integer> someWords)
+    {
+        for (String word: someWords.keySet()){
+            outputFile.println("<html>");
+            outputFile.println("<body>");
+            
+            int freq = someWords.get(word);
+            System.out.println("<p style='font-size:" + freq + "'>"+word+"</p>");
+            
+            System.out.println("</body>");
+            System.out.println("</html>");
+        }
+
+    }
+    
+    
+    public ArrayList<String> getWords()
+    {
+        return words;
+    }
+    
+    public double getWordCount()
+    {
+        return totalWordCount;
+    }
     
 
     public static void main(String [] args)
-	{
-		if (args.length < 1) {
-			System.out.println("You are a bad person. Give a filename to read");
-		} else {
-			ReadFile mainObject = new ReadFile();
-			File fileToRead = new File(args[0]);
-			try {
-				Scanner in = new Scanner(fileToRead);
-				mainObject.readIt(in);
-				/* Now demonstrate a PrintWriter for printing a file */
-				PrintWriter outFile = new PrintWriter("words.txt");
-				ArrayList<String> words = new ArrayList<String>();
-				words.add("how");
-				words.add("now");
-				words.add("brown");
-				words.add("cow");
-				mainObject.writeIt(outFile,words);
-				outFile.close();
-			} catch(IOException e) {
-				System.out.println("Uh oh, file error! "+ e);
-			}
-
-		}
-    
+    {
         
         if (args.length < 1) {
-            System.out.println("Give a valid filename.");
+            System.out.println("You are a bad person. Give a filename to read");
         } else {
+            ReadFile mainObject = new ReadFile();
             File fileToRead = new File(args[0]);
             try {
-                
                 Scanner in = new Scanner(fileToRead);
-                ReadFile mainObject = new ReadFile();
                 mainObject.readIt(in);
+                /* Now demonstrate a PrintWriter for printing a file */
+                PrintWriter outFile = new PrintWriter("WickedWords.html");
                 
+                HashMap<String,Integer> wordBank = new HashMap<String,Integer>();
+                int wordCount = 0;
+                
+                ArrayList<String> myWords = mainObject.getWords();
+                for (String word : myWords) {
+                    if (wordBank.get(word)!=null) {
+                        wordCount = wordBank.get(word);
+                        wordCount++;
+                    }
+                    
+                    
+                }
+                mainObject.writeIt(outFile,wordBank);
+                outFile.close();
             } catch(IOException e) {
-                System.out.println("File error!");
+                System.out.println("Uh oh, file error! "+ e);
             }
+
         }
     
     }

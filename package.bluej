@@ -1,9 +1,9 @@
 #BlueJ package file
 objectbench.height=100
-objectbench.width=295
+objectbench.width=342
 package.editor.height=572
-package.editor.width=502
-package.editor.x=730
+package.editor.width=549
+package.editor.x=0
 package.editor.y=0
 package.numDependencies=0
 package.numTargets=1
@@ -11,11 +11,12 @@ package.showExtends=true
 package.showUses=true
 project.charset=UTF-8
 target1.editor.height=768
-target1.editor.width=683
-target1.editor.x=683
+target1.editor.width=685
+target1.editor.x=0
 target1.editor.y=0
 target1.height=50
 target1.name=ReadFile
+target1.naviview.expanded=false
 target1.showInterface=false
 target1.type=ClassTarget
 target1.typeParameters=
