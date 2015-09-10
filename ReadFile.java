@@ -47,7 +47,7 @@ public class ReadFile
 		
         for (String word: someWords) {
             int freq = countWords.get(word);
-            outputFile.println("WORD: " + word);
+            outputFile.println("WORD: " + "<p style='font-size:"+freq*10+"'>"+word+"</p>"););
             
             outputFile.println("FREQUENCY: " + freq);
 
@@ -79,13 +79,11 @@ public class ReadFile
                 PrintWriter outFile = new PrintWriter("WickedWords.html");
                 HashMap<String,Integer> myWords = mainObject.getCountWords();
                 ArrayList<String> wordCloud = new ArrayList<String>();
-                int freq = 1;
                 
                 for (String word : myWords.keySet()) {
+                    int freq = myWords.get(word);
                     wordCloud.add(word);
                 }
-                
-                
                 
                 mainObject.writeIt(outFile,wordCloud);
                 outFile.close();
