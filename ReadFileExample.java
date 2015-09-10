@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 public class ReadFileExample
 {
+    private ArrayList<String> words = new ArrayList<String>(); 
+    
     /**
      * echo the given file
      * kind of boring
@@ -22,6 +24,7 @@ public class ReadFileExample
 		while (infile.hasNext())
 		{
 			String word = infile.next();
+			words.add(word);
 			System.out.println("WORD: " + word);
 		}
 	}
@@ -58,7 +61,6 @@ public class ReadFileExample
 				mainObject.readIt(in);
 				/* Now demonstrate a PrintWriter for printing a file */
 				PrintWriter outFile = new PrintWriter("words.html");
-				ArrayList<String> words = new ArrayList<String>();
 				
 				words.add("how");
 				words.add("now");

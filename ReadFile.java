@@ -26,11 +26,10 @@ public class ReadFile
                
         while (infile.hasNext())
         {
-            totalWordCount++;
             String word = infile.next();
-            words.add(word);
             
             System.out.println(word);
+            totalWordCount++;
         }
         
         System.out.println(totalWordCount);
@@ -46,16 +45,16 @@ public class ReadFile
         outputFile.println("<html>");
 		outputFile.println("<body>");
 		
-        for (String word: someWords.keySet()){
-                       
-            outputFile.println(word);
+        for (String word: someWords.keySet()) {
+            words.add(word);
+            int freq = someWords.get(word);
+            outputFile.println("<p style='font-size:"+freq+"'>"+word+"</p>");
         }
         
         outputFile.println("</html>");
 		outputFile.println("</body>");
     }
-    
-    
+ 
     public ArrayList<String> getWords()
     {
         return words;
@@ -81,17 +80,13 @@ public class ReadFile
                 /* Now demonstrate a PrintWriter for printing a file */
                 PrintWriter outFile = new PrintWriter("WickedWords.html");
                 HashMap<String,Integer> wordBank = new HashMap<String,Integer>();
-                int wordCount = 0;
-                
+
                 ArrayList<String> myWords = mainObject.getWords();
                 for (String word : myWords) {
-                    if (wordBank.get(word)!=null) {
-                        wordCount = wordBank.get(word);
-                        wordCount++;
-                    }
-                    
-                    
+                    Integer freq = wordBank.get(word);
+                    wordBank.put(word,freq+1);
                 }
+                
                 mainObject.writeIt(outFile,wordBank);
                 outFile.close();
             } catch(IOException e) {
