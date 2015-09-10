@@ -43,17 +43,16 @@ public class ReadFile
     **/
     public void writeIt(PrintWriter outputFile, HashMap<String,Integer> someWords)
     {
+        outputFile.println("<html>");
+		outputFile.println("<body>");
+		
         for (String word: someWords.keySet()){
-            outputFile.println("<html>");
-            outputFile.println("<body>");
-            
-            int freq = someWords.get(word);
-            System.out.println("<p style='font-size:" + freq + "'>"+word+"</p>");
-            
-            System.out.println("</body>");
-            System.out.println("</html>");
+                       
+            outputFile.println(word);
         }
-
+        
+        outputFile.println("</html>");
+		outputFile.println("</body>");
     }
     
     
@@ -81,7 +80,6 @@ public class ReadFile
                 mainObject.readIt(in);
                 /* Now demonstrate a PrintWriter for printing a file */
                 PrintWriter outFile = new PrintWriter("WickedWords.html");
-                
                 HashMap<String,Integer> wordBank = new HashMap<String,Integer>();
                 int wordCount = 0;
                 

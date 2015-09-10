@@ -33,17 +33,16 @@ public class ReadFileExample
 	**/
 	public void writeIt(PrintWriter outputFile, ArrayList<String> someWords)
 	{
-		for (String word: someWords) 
+		outputFile.println("<html>");
+		outputFile.println("<body>");
+	    
+	    for (String word: someWords) 
 		{
-		    
-		    outputFile.println("<html>");
-		    outputFile.println("<body>");
-		    
 		    outputFile.println(word);
-		    
-		    outputFile.println("</body>");
-			outputFile.println("</html>");
 		}
+		
+		outputFile.println("</html>");
+		outputFile.println("</body>");
 	}
 
 	public static void main(String [] args)
