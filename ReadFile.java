@@ -15,24 +15,28 @@ import java.util.ArrayList;
  */
 public class ReadFile
 {
-    private double totalWordCount = 0.00;
-    private ArrayList<String> words = new ArrayList<String>();
+    private HashMap<String,Integer> countWords = new HashMap<String,Integer>();
     
     /**
      * Constructor for objects of class ReadFile
      */
     public void readIt(Scanner infile)
     {
-               
+        HashMap<String, Integer>countWords = new HashMap<String, Integer>();
+        
         while (infile.hasNext())
         {
             String word = infile.next();
             
+            if (countWords.containsKey(word)) {
+                countWords.put(word,countWords.get(word)+1);
+            } else {
+                countWords.put(word,1);
+            }
             System.out.println(word);
-            totalWordCount++;
         }
         
-        System.out.println(totalWordCount);
+                
     }
     
     /**
@@ -40,14 +44,13 @@ public class ReadFile
     * @param outputFile is the file object for output
     * @param someWords is a list of words to print out
     **/
-    public void writeIt(PrintWriter outputFile, HashMap<String,Integer> someWords)
+    public void writeIt(PrintWriter outputFile, ArrayList<String> someWords)
     {
         outputFile.println("<html>");
 		outputFile.println("<body>");
 		
-        for (String word: someWords.keySet()) {
-            words.add(word);
-            int freq = someWords.get(word);
+        for (String word: someWords) {
+            int freq = countWords.get(word);
             outputFile.println("<p style='font-size:"+freq+"'>"+word+"</p>");
         }
         
@@ -55,15 +58,11 @@ public class ReadFile
 		outputFile.println("</body>");
     }
  
-    public ArrayList<String> getWords()
+    public HashMap<String,Integer> getCountWords()
     {
-        return words;
+        return countWords;
     }
     
-    public double getWordCount()
-    {
-        return totalWordCount;
-    }
     
 
     public static void main(String [] args)
@@ -80,19 +79,29 @@ public class ReadFile
                 /* Now demonstrate a PrintWriter for printing a file */
                 PrintWriter outFile = new PrintWriter("WickedWords.html");
                 HashMap<String,Integer> wordBank = new HashMap<String,Integer>();
-
-                ArrayList<String> myWords = mainObject.getWords();
-                for (String word : myWords) {
-                    Integer freq = wordBank.get(word);
-                    wordBank.put(word,freq+1);
+                HashMap<String,Integer> myWords = mainObject.getCountWords();
+                ArrayList<String> wordCloud = new ArrayList<String>();
+                
+                for (String word : myWords.keySet()) {
+                    wordCloud.add(word);
                 }
                 
-                mainObject.writeIt(outFile,wordBank);
+                for (String word : wordCloud) {
+                    wordBank.put(word,0);
+                    Integer freq = wordBank.get(word);
+                    
+                    if (wordBank.get(freq).equals(word)) {
+                        wordBank.put(word,freq+1);
+                    }
+                
+                    
+                }
+                
+                mainObject.writeIt(outFile,wordCloud);
                 outFile.close();
-            } catch(IOException e) {
-                System.out.println("Uh oh, file error! "+ e);
+            } catch (IOException e) {
+                System.out.println("There's a file error! " + e);
             }
-
         }
     
     }
